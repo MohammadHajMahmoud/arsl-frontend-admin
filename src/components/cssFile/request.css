@@ -1,0 +1,93 @@
+.reqWebc {
+  object-fit: cover;
+  width: 55%;
+  height: 94vh;
+  background-color: black;
+  z-index: 1;
+  margin-left: 22.5%;
+}
+.reqWebCon {
+  position: relative;
+  object-fit: cover;
+  display: flex;
+}
+
+.imgToggle {
+  position: absolute;
+  left: 0;
+  top: 8%;
+  width: 100px;
+  height: 100px;
+}
+
+img:hover {
+  cursor: pointer;
+}
+
+
+
+.reQbuttons{
+  display: flex;
+  flex-direction: column;
+}
+
+.cnt{
+  margin: auto;
+  margin-top: 4px;
+      position: absolute;      
+      margin :0;
+      width: 100%;
+      z-index: 99 !important;
+      top: 0px;
+      font-family: verdana;
+      text-align: center;
+      font-size: 60px;
+      color: rgb(244, 255, 255);
+      background: transparent;
+      text-shadow: rgb(0, 0, 0) 2px 2px 2px;
+      border-radius: 5%;
+      border-style: none;
+      height: 100px;
+      pointer-events: none; 
+}
+.bot{
+  margin-bottom: 15px;
+  display: block;
+  border: 0;
+  font-size: 16px;
+  line-height: 16px;
+  padding: 15px 50px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  color: white;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+background-color: #58DADA;
+background-color: linear-gradient(to bottom, #58DADA, #1CA2BB);
+}
+
+
+@media (max-width: 1200px) {
+  .reqWebc {
+    z-index: 1;
+    width: 100%;
+    margin-left: 0%;
+  }
+  .reqWebCon{
+    flex-direction: column;
+  }
+  .reQbuttons{
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  .bot{
+    padding:  10px;
+    margin-bottom: 0;
+    margin: 0px 2px ;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+  }
+}
