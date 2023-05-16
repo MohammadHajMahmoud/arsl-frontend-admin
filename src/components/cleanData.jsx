@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import "./cssFile/availableWords.css"
 import ActionComponent from "./actionComponent";
-import axios from 'axios';
+import { persistenceApi } from './apis';
+
 function CleanData() {
-const [actions,setActions] = useState([]);
+  const [actions,setActions] = useState([]);
   useEffect(() => {
-    axios.defaults.withCredentials = true;
-    axios.get(`http://localhost:8080/actions`)
+    persistenceApi.get(`/actions`)
       .then((response) => {
         const extractedNames = response.data.map(obj => obj.name);
         setActions(extractedNames);
@@ -15,15 +15,13 @@ const [actions,setActions] = useState([]);
         console.error(error);
       });
   }, []);
-    const actionsList= actions.map(action=><ActionComponent action={action}/>)
-    return(
-        
-            <div class="center">
-             <ul>
-                 {actionsList}
-                 </ul>
-            </div>
-            
+
+    return(  
+      <div class="center">
+        <ul>
+          {actions.map(action=><ActionComponent action={action}/>)}
+        </ul>
+      </div>
     )
 }
 
