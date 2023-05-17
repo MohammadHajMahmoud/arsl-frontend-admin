@@ -2,6 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import HolisticModel from "./HolisticModel";
 import { useParams } from "react-router";
 import { persistenceApi } from "./apis";
+import formatResult from "./formatResult";
+import { waitFor } from "@testing-library/react";
+import { wait } from "@testing-library/user-event/dist/utils";
+
 
 function Validate(){
   const [video, setVideo] = useState(null);
@@ -9,39 +13,63 @@ function Validate(){
   const { action } = useParams();
   const videoRef = useRef(null);
   const FRAME_RATE = 15;
-  let handleFrameUpdate = null;
+        
+  const holistic = HolisticModel( (result) => {
+    frames.push(formatResult(result));
+  });
 
+  let currentFrame = 0;
+  let interval;
+  const onPlay = () => {
+    interval = setInterval(() => {
+      console.log(currentFrame++);
+      // holistic.send({ image: imageData }); TODO: findout what to send in image
+    }, 1000/FRAME_RATE);    
+  };
 
-  async function fetchVideo(action){
+  const onEnd = () => {
+    clearInterval(interval);
+    console.log(`this video is ${currentFrame/FRAME_RATE} seconds long`);
+    console.log(frames.splice(-30));
+  };
+
+  let frames = [];
+
+  async function fetchVideo(action) {
     const response = await persistenceApi.get(`/actions/${action}/videos/single`, { responseType: 'blob' })
-    setVideo(URL.createObjectURL(response.data));
     setVideoType(response.headers.get("Content-Type"));
+    setVideo(URL.createObjectURL(response.data));
   }
-  async function setup(action){
-    await fetchVideo(action);
+  
+  useEffect(() => {
+  
+    fetchVideo(action);
     
-    while(videoRef.current);
-
-    videoRef.current.addEventListener('timeupdate', handleFrameUpdate);  
-  }
-
-    useEffect(() => {
-      setup(action);
-
-      // const holistic = HolisticModel(console.log);
-
-
-      return () => {
-        // holistic.close();
-        videoRef.current.removeEventListener('timeupdate', handleFrameUpdate);
-      };
+    return () => {
+      holistic.close();
+    };
    }, []);
-   
+
+   useEffect(() => {
+    if(videoRef.current){
+      videoRef.current.addEventListener('play', onPlay);
+      videoRef.current.addEventListener('ended', onEnd);
+      // videoRef.current.play(); todo make it play at the right time
+    }
+    return () => {
+      if(videoRef.current){  
+        videoRef.current.removeEventListener('play', onPlay);
+        videoRef.current.removeEventListener('ended', onEnd);
+      }
+    };
+    
+   }, [video]);
+
    return (
     <div>
       {video? 
       <video ref={videoRef}
-      autoPlay muted >
+      muted controls>
           <source src={video} type={videoType} />
           Your browser does not support the video tag.
       </video>:
