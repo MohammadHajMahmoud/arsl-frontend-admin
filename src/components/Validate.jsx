@@ -3,42 +3,54 @@ import HolisticModel from "./HolisticModel";
 import { useParams } from "react-router";
 import { persistenceApi } from "./apis";
 import formatResult from "./formatResult";
-import { waitFor } from "@testing-library/react";
-import { wait } from "@testing-library/user-event/dist/utils";
 
 
 function Validate(){
   const [video, setVideo] = useState(null);
+  const [videoElement, setVideoElement] = useState(null);
   const [videoType, setVideoType] = useState(null);
   const { action } = useParams();
   const videoRef = useRef(null);
+  const canvasRef = useRef(null);
   const FRAME_RATE = 15;
-        
+  const rawFrames = [];
+  const resultFrames = [];
+  const canvas = canvasRef.current;
+
   const holistic = HolisticModel( (result) => {
-    frames.push(formatResult(result));
+    resultFrames.push(formatResult(result));
   });
 
-  let currentFrame = 0;
+  
   let interval;
   const onPlay = () => {
-    interval = setInterval(() => {
-      console.log(currentFrame++);
-      // holistic.send({ image: imageData }); TODO: findout what to send in image
-    }, 1000/FRAME_RATE);    
+    let context;
+    if(canvas) {
+      context = canvas.getContext('2d');
+    }
+    interval = setInterval(() => { 
+      videoElement.play();
+      context.drawImage(videoElement, 0, 0);
+      const imageData = context.getImageData(0, 0, videoElement.videoWidth, videoElement.videoHeight);
+      rawFrames.push(imageData);
+    }, 1000/FRAME_RATE);
   };
 
-  const onEnd = () => {
+  const onEnd = async () => {
     clearInterval(interval);
-    console.log(`this video is ${currentFrame/FRAME_RATE} seconds long`);
-    console.log(frames.splice(-30));
-  };
 
-  let frames = [];
+    for(const imageData of rawFrames){
+      await holistic.send({ image: imageData })
+    }
+    console.log(rawFrames);
+    console.log(resultFrames);
+  };
 
   async function fetchVideo(action) {
-    const response = await persistenceApi.get(`/actions/${action}/videos/single`, { responseType: 'blob' })
+    const response = await persistenceApi.get(`/actions/${action}/videos/single`, { responseType: 'blob' });
     setVideoType(response.headers.get("Content-Type"));
     setVideo(URL.createObjectURL(response.data));
+    setVideoElement(document.createElement('video'));
   }
   
   useEffect(() => {
@@ -54,6 +66,9 @@ function Validate(){
     if(videoRef.current){
       videoRef.current.addEventListener('play', onPlay);
       videoRef.current.addEventListener('ended', onEnd);
+
+      videoElement.src = video;
+      videoElement.load();
       // videoRef.current.play(); todo make it play at the right time
     }
     return () => {
@@ -75,6 +90,7 @@ function Validate(){
       </video>:
       <p>Loading video...</p>
       }
+      <canvas ref={canvasRef}  />
       <button>
         valid
       </button>
