@@ -15,7 +15,6 @@ function HolisticModel(onResult){
         minTrackingConfidence: 0.7,
     });
     
-    holistic.send([]);
     holistic.onResults(onResult);
     return holistic;
 }

@@ -4,7 +4,7 @@ import AddAction from './components/addAction';
 import CleanData from './components/cleanData';
 import ShowDemo from './components/ShowDemo';
 import Validate from './components/Validate';
-import NeuralComponent from './components/NeuralComponent';
+// import NeuralComponent from './components/NeuralComponent';
 import ProtectedRoute from './components/ProtectedRoute';
 import LoginForm from './components/Login';
 import BotNavigation from "./components/nav"
