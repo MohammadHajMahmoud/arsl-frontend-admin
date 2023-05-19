@@ -1,5 +1,6 @@
-import React, { useEffect, useState,useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { persistenceApi } from "./apis";
 
 function ShowDemo() {
   const [blob, setBlob] = useState(null);
@@ -7,15 +8,14 @@ function ShowDemo() {
   const { action } = useParams();
 
   useEffect(() => {
-    fetch(`http://localhost:8080/actions/${action}/demo`)
-      .then((response) => {
-        if (!response.ok) {
+
+    persistenceApi.get(`/actions/${action}/demo`, { responseType: 'blob' })
+      .then( (response) => {
+        if ( response.status > 299 || response.status < 200) {
           throw new Error("Error retrieving blob data");
         }
+        setBlob(URL.createObjectURL(response.data));
         setType(response.headers.get("Content-Type"));
-        return response.blob();
-      }).then((blob) => {
-        setBlob(URL.createObjectURL(blob));
       }).catch( (error) => {
         console.error("Error retrieving blob data:", error);
       });
