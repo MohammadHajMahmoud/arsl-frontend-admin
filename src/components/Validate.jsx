@@ -9,6 +9,7 @@ function Validate(){
   const [video, setVideo] = useState(null);
   const [videoElement, setVideoElement] = useState(null);
   const [videoType, setVideoType] = useState(null);
+  const [videoKey, setVideoKey] = useState(null);
   const { action } = useParams();
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
@@ -16,20 +17,19 @@ function Validate(){
   const rawFrames = [];
   const resultFrames = [];
   const canvas = canvasRef.current;
-  let videoKey = null;
 
   const onValidation = async () => {
     await persistenceApi.put(`/actions/${action}/videos/${videoKey}/approve`, {
       frames: resultFrames
     });
-    videoKey = null;
-    await fetchVideo(action);
+    setVideoKey(null);
+    fetchVideo(action);
   }
 
   const onRejection = async () => {
     await persistenceApi.put(`/actions/${action}/videos/${videoKey}/reject`);
-    videoKey = null;
-    await fetchVideo(action);
+    setVideoKey(null);
+    fetchVideo(action);
   }
 
   const holistic = HolisticModel( (result) => {
@@ -64,12 +64,19 @@ function Validate(){
     resultFrames.splice(0, resultFrames.length-30);
   };
 
-  async function fetchVideo(action) {
-    const response = await persistenceApi.get(`/actions/${action}/videos/single`, { responseType: 'blob' });
-    setVideoType(response.headers.get("Content-Type"));
-    setVideo(URL.createObjectURL(response.data));
-    setVideoElement(document.createElement('video'));
-    videoKey = response.headers.get('video-key'); // FIX:: this is null. findout why and solve it plz.
+  function fetchVideo(action) {
+    console.log('fetching video');
+    persistenceApi.get(`/actions/${action}/videos/single`)
+    .then( (response) => {
+      setVideoKey(response.data['video-key']);
+      return persistenceApi.get(`/actions/${action}/videos/${response.data['video-key']}/download`, {
+        responseType: 'blob'
+      });
+    }).then( (response) => {
+      setVideoType(response.headers.get("Content-Type"));
+      setVideo(URL.createObjectURL(response.data));
+      setVideoElement(document.createElement('video'));
+    });
   }
   
   useEffect(() => {
