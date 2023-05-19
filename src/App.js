@@ -1,8 +1,8 @@
-import logo from './logo.svg';
 import './App.css';
 import {BrowserRouter,Routes,Route} from "react-router-dom"
 import AddAction from './components/addAction';
 import CleanData from './components/cleanData';
+import ShowDemo from './components/ShowDemo';
 import Validate from './components/Validate';
 import NeuralComponent from './components/NeuralComponent';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -17,7 +17,7 @@ function App() {
         <Route path ="/add-action" element={<ProtectedRoute><AddAction/></ProtectedRoute>}/>
          <Route path='/clean-data' element={<ProtectedRoute><CleanData/></ProtectedRoute>}/>
          <Route path='/validate/:action' element={<ProtectedRoute><Validate/></ProtectedRoute>}/>
-         <Route path='/neural'element={<ProtectedRoute><NeuralComponent/></ProtectedRoute>}/>
+         <Route path='/show-demo/:action' element={<ProtectedRoute><ShowDemo/></ProtectedRoute>}/>
       </Routes>
     </BrowserRouter>
   );
