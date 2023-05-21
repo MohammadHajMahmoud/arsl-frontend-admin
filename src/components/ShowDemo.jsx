@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { persistenceApi } from "./apis";
-
+import axios from "axios";
 function ShowDemo() {
   const [blob, setBlob] = useState(null);
   const [type, setType] = useState(null);
   const { action } = useParams();
 
   useEffect(() => {
-
+    axios.defaults.withCredentials = true;
+    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
     persistenceApi.get(`/actions/${action}/demo`, { responseType: 'blob' })
       .then( (response) => {
         if ( response.status > 299 || response.status < 200) {

@@ -22,14 +22,13 @@ function Validate(){
     await persistenceApi.put(`/actions/${action}/videos/${videoKey}/approve`, {
       frames: resultFrames
     });
-    setVideoKey(null);
-    fetchVideo(action);
+    window.location.reload(); 
+;
   }
 
   const onRejection = async () => {
     await persistenceApi.put(`/actions/${action}/videos/${videoKey}/reject`);
-    setVideoKey(null);
-    fetchVideo(action);
+    window.location.reload(); 
   }
 
   const holistic = HolisticModel( (result) => {

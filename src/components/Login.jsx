@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import './cssFile/login.css'
 const LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -15,26 +15,32 @@ const LoginForm = () => {
       localStorage.setItem('token', token);
       window.location.href = '/add-action';
     } catch (error) {
+      alert("Enter valid login informations")
       console.log('Login failed:', error);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div class="login-page">
+    <div class="form">
+    <form className="login-form" onSubmit={handleSubmit}>
       <input
+      className='log'
         type="text"
         placeholder="Username"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
-      <input
+      <input className='log'
         type="password"
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button type="submit">Login</button>
+      < button className='btn' type="submit">Login</button>
     </form>
+    </div>
+    </div>
   );
 };
 

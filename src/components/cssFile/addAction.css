@@ -1,0 +1,108 @@
+.add-action-container{
+   padding: 4% 0 0;
+   margin: auto;
+}
+.action-form{
+   position: relative;
+   z-index: 1;
+   background: #ffffff;
+   max-width: 700px;
+   margin: 0 auto 100px;
+   padding: 45px;
+   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+   -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px; 
+}
+
+.input-action{
+      font-family: "Roboto", sans-serif;
+      outline: 0;
+      background: #f2f2f2;
+      width: 100%;
+      border: 0;
+      margin: 0 0 15px;
+      padding: 15px;
+      box-sizing: border-box;
+      font-size: 14px;
+    
+}
+.label1 {
+	font-size: 20px;
+	color: var(--color-white);
+	text-transform: capitalize;
+
+}
+
+.input1{
+	padding:  10px 15px ;
+	border: none;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;   
+}
+select{
+   padding: 10px;
+   border: none;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;   
+}
+.check {
+margin: 15px;
+   min-width: 1.1em;
+	min-height: 1.1em;
+}
+
+
+.btn-add-action {
+   font-family: "Roboto", sans-serif;
+   text-transform: uppercase;
+   outline: 0;
+   background: #729af1;
+   width: 50%;
+   border: 0;
+   padding: 15px;
+   color: #ffffff;
+   font-size: 14px;
+   cursor: pointer;
+   -webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;   
+ }
+ .btn:hover,
+ .btn:active,
+ .btn:focus {
+   background: #32c8e2;
+ }
+ input[type=file]::file-selector-button {
+   background-color: #fff;
+   color: #000;
+   border: 0px;
+   border-right: 1px solid #e5e5e5;
+   padding: 10px 11px;
+   margin-right: 10px;
+   transition: .5s;
+ }
+ 
+ input[type=file]::file-selector-button:hover {
+   background-color: #eee;
+   border: 0px;
+   border-right: 1px solid #e5e5e5;
+ }
+
+.btn-con{
+   display: flex;
+justify-content: center;
+width: 100%;
+}
+
+
+
+

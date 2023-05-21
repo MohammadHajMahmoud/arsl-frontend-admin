@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { json } from 'react-router';
-
+import "./cssFile/addAction.css"
 const AddAction = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [action, setAction] = useState('');
@@ -27,11 +27,16 @@ const AddAction = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!selectedFile || !action) {
-      alert('Please select a file and enter a word');
+      alert('Please select a file and enter an action');
+      return;
+    }
+    if(demoStatus ==""){
+      alert('Please select status for the action');
       return;
     }
         const formData = new FormData();
         let body={name:action , status : demoStatus , requiresGathering :isRequiresGathering }
+        console.log(body)
         let strbody = JSON.stringify(body);
         const blob = new Blob([strbody], {
           type: 'application/json'
@@ -60,31 +65,38 @@ const AddAction = () => {
    
 
   return (
-    <div>
-      <h1>upload action</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="file">Select Video:</label>
-          <input type="file" id="file" accept="video/*" onChange={handleFileChange} />
+    <div className= 'add-action-container'>
+      <form className ="action-form"onSubmit={handleSubmit}>       
+        <div className='small-action-con' >
+          <input placeholder='Enter an Action word' className='input-action'  type="text" id="word" value={action} onChange={handleActionChange} />
         </div>
-        <div>
-          <label htmlFor="word">Enter Word:</label>
-          <input type="text" id="word" value={action} onChange={handleActionChange} />
-        </div>
-        <button type="submit">Upload</button>
-      </form>
-      <select value={demoStatus} onChange={handleDropdownChange}>
-        <option value="">Select...</option>
+      
+      <select  className='input-action'  value={demoStatus} onChange={handleDropdownChange}>
+        <option value="">Select Status</option>
         <option value="AVAILABLE">AVAILABLE</option>
         <option value="UNAVAILABLE">UNAVAILABLE</option>
       </select>
-      <br />
-      <label htmlFor="checkbox"> requiresGathering</label>
+      
+      <div className='small-action-con'>
+          <label className='label1 ' >Select Demo:</label>
+          <input className='input-action' type="file" id="file" accept="video/*" onChange={handleFileChange} />
+        </div>
+        <div > 
+      <label htmlFor="check">Require Gathering ? </label>
         <input
+        className='check'
           type="checkbox"
           checked={isRequiresGathering}
           onChange={handleCheckboxChange}
         />
+      </div>
+      
+        <div className='btn-con'>
+        <button className='btn-add-action ' type="submit">add action</button>
+
+          </div>
+
+        </form>
     </div>
   );
 };

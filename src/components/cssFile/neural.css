@@ -1,4 +1,140 @@
 .container{
     display: flex;
-    justify-content: space-around;
+    margin-top: 30px;
+    height: 90vh;
 }
+
+ul   {
+   list-style: none;
+}
+th, td {
+   width: 270px;
+   text-align: left;
+   padding: 5px;
+   font-weight: 300;
+ }
+
+
+
+.in-neural {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 200px;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+  }
+  .add-layer-con{
+    display: flex;
+    flex-direction: column;
+    padding: 25px 20px;
+  }
+
+ .fields-con{
+    margin-top: 20px;
+ }
+ .add-layer-btn{
+ height: 35px;
+ }
+ .layers-con{
+   width:320px;;
+    display: flex;
+    flex-direction: column;
+ }
+ .head{
+    text-align: center;
+ }
+
+ table {
+   width:320px;;
+  margin: 10px auto;
+}
+th {
+   font-weight: 400;
+   background: #8a97a0;
+   color: #FFF;
+ }
+ tr {
+   background: #f4f7f8;
+   border-bottom: 1px solid #FFF;
+   margin-bottom: 5px;
+ }
+ body {
+   font-family: 'Nunito', sans-serif;
+ }
+ .del_layer{
+   font-size: 20px;
+height: 40px;
+width: 40px;
+
+ }
+ .tbl{
+   width:320px;
+}
+ .flx{
+ max-width: 50px;
+ min-width: 50px;
+ }
+ .lists-con{
+   padding: 0 50px;
+   display: flex;
+   width: 350px;
+   justify-content: space-between;
+   
+ }
+ .list1{
+
+ }
+ .add-layer-btn{
+   font-family: "Roboto", sans-serif;
+   text-transform: uppercase;
+   background: #729af1;
+   border: 0;
+   padding: 7px;
+   border-radius: 4px;
+   color: #ffffff;
+   text-align: center;
+   font-size: 14px;
+   cursor: pointer;
+
+ }
+
+ .epoc{
+   margin-left: 31px;
+   margin-top: 27px;
+ }
+ .epoc_in{
+   font-family: "Roboto", sans-serif;
+    background: #f2f2f2;
+    width: 50%;
+    border: 0;
+    padding: 10px;
+    box-sizing: border-box;
+    font-size: 14px;
+    border-radius: 5px;
+
+ }
+
+
+ .create-neural{
+   position: fixed;
+   bottom: 80px;
+   right: 40px;
+   width: 200px;
+   height: 70px;
+
+ }
+ .list-item{
+   margin-bottom: .5rem;
+   border: 1px solid #e5e5e5;
+     border-radius: 3px;
+     background-color: #e5e5e5;
+     width: 100px;
+     cursor: pointer
+ }
+ .le{
+max-width: fit-content;
+ }
