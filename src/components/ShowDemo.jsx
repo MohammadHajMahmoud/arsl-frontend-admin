@@ -25,15 +25,21 @@ function ShowDemo() {
 
   
   return (
-    <div>
+    <div className="reqWebCon">
+      
       {blob ? (
-        <video id="vod" controls>
+        <video id="vod" className="reqWebc" controls>
           <source src={blob} type={type} />
         </video>
       ) : (
         <p>Loading video...</p>
       )}
-      <Link to={`/validate/${action}`}>validate Ze Data</Link>
+        <div className="reQbuttons">
+        <button className="bot vil">
+      <Link to={`/validate/${action}`}>proceed to validation page</Link>
+      </button>
+        </div>
+      
     </div>
   );
 }
