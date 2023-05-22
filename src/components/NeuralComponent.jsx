@@ -119,6 +119,7 @@ export default function NeuralComponent() {
     let actions = list1;
     let num_epochs = epochsNum;
     
+    axios.defaults.withCredentials = true;
     axios.post('http://localhost:9876/train-new-model',{
       layers: layers,
       actions: actions,
