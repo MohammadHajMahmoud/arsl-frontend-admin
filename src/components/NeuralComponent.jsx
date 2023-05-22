@@ -115,12 +115,16 @@ export default function NeuralComponent() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    let layer_configs = layerList;
+    let layers = layerList;
     let actions = list1;
-    let epochs_num = epochsNum;
-    console.log(layer_configs);
-    console.log(actions);
-    console.log(epochs_num);
+    let num_epochs = epochsNum;
+    
+    axios.post('http://localhost:9876/train-new-model',{
+      layers: layers,
+      actions: actions,
+      num_epochs: num_epochs
+    })
+
     toast.success('Neural Created', {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 3000, // milliseconds
