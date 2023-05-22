@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './cssFile/login.css'
+import { ToastContainer,toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 const LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -14,14 +16,16 @@ const LoginForm = () => {
       // Store the token in local storage
       localStorage.setItem('token', token);
       window.location.href = '/add-action';
+
     } catch (error) {
-      alert("Enter valid login informations")
+      toast.error("Enter Valid Login informations",{position:toast.POSITION.TOP_CENTER})
       console.log('Login failed:', error);
     }
   };
 
   return (
     <div class="login-page">
+      <ToastContainer/>
     <div class="form">
     <form className="login-form" onSubmit={handleSubmit}>
       <input

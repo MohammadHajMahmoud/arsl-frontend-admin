@@ -7,7 +7,7 @@
 ul   {
    list-style: none;
 }
-th, td {
+.hl, .tl {
    width: 270px;
    text-align: left;
    padding: 5px;
@@ -52,12 +52,12 @@ th, td {
    width:320px;;
   margin: 10px auto;
 }
-th {
+.hl {
    font-weight: 400;
    background: #8a97a0;
    color: #FFF;
  }
- tr {
+ .rl {
    background: #f4f7f8;
    border-bottom: 1px solid #FFF;
    margin-bottom: 5px;

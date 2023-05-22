@@ -9,12 +9,14 @@ import ProtectedRoute from './components/ProtectedRoute';
 import LoginForm from './components/Login';
 import BotNavigation from "./components/nav"
 import Register from "./components/Register"
+import Dashboard from './components/adminDashboard';
 function App() {
   return (
 <BrowserRouter>
       <BotNavigation/> 
      <Routes>
-      <Route path ="/login" element ={<LoginForm/>}/>
+      <Route path ="" element ={<LoginForm/>}/>
+      <Route path="/dashboard" element={<ProtectedRoute><Dashboard/></ProtectedRoute>} />
       <Route path="/register" element={<ProtectedRoute><Register/></ProtectedRoute>} />
         <Route path ="/add-action" element={<ProtectedRoute><AddAction/></ProtectedRoute>}/>
          <Route path='/clean-data' element={<ProtectedRoute><CleanData/></ProtectedRoute>}/>

@@ -8,7 +8,8 @@ import { fontSize } from '@mui/system';
 export default function BotNavigation(){
   const [value, setValue] = React.useState(0);
   const navigate=useNavigate()
- 
+  const isLoggedIn = !! localStorage.getItem('token');
+
   return (
       <Box >
       <BottomNavigation
@@ -21,10 +22,21 @@ export default function BotNavigation(){
           setValue(newValue);
         }}
       >
+               <BottomNavigationAction label={<span className="bottomNavLabel">Dashboard</span>} onClick={()=>navigate("/dashboard")} />
        <BottomNavigationAction label={<span className="bottomNavLabel">register Data cleaner</span>} onClick={()=>navigate("/register")}  />
         <BottomNavigationAction label={<span className="bottomNavLabel"> add action</span>} onClick={()=>navigate("/add-action")}/>
         <BottomNavigationAction label={<span className="bottomNavLabel">clean data</span>} onClick={()=>navigate("/clean-data")}/>
         <BottomNavigationAction label={<span className="bottomNavLabel">create a neural</span>} onClick={()=>navigate("/neural")}  />
+        {isLoggedIn ? (
+  <BottomNavigationAction
+    label={<span className="bottomNavLabel">Logout</span>}
+    onClick={() => {
+      localStorage.removeItem('token');
+      window.location.href = '/';
+    }}
+  />
+) : (null)}
+
       </BottomNavigation>
     </Box>
     

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { json } from 'react-router';
 import "./cssFile/addAction.css"
+import { ToastContainer,toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 const AddAction = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [action, setAction] = useState('');
@@ -27,11 +29,11 @@ const AddAction = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!selectedFile || !action) {
-      alert('Please select a file and enter an action');
+      toast.error('Please select a file and enter an action',{position:toast.POSITION.TOP_CENTER})
       return;
     }
     if(demoStatus ==""){
-      alert('Please select status for the action');
+      toast.error('Please select status for the action',{position:toast.POSITION.TOP_CENTER})
       return;
     }
         const formData = new FormData();
@@ -52,8 +54,14 @@ const AddAction = () => {
           },
         })
           .then((response) => {
+            toast.success('Action Added Successfully', {
+              position: toast.POSITION.TOP_CENTER,
+              autoClose: 3000, // milliseconds
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+            });
               console.log(response)
-            console.log("hi");
           })
           .catch((error) => {
             console.error(error);
@@ -66,6 +74,7 @@ const AddAction = () => {
 
   return (
     <div className= 'add-action-container'>
+    <ToastContainer/>
       <form className ="action-form"onSubmit={handleSubmit}>       
         <div className='small-action-con' >
           <input placeholder='Enter an Action word' className='input-action'  type="text" id="word" value={action} onChange={handleActionChange} />

@@ -1,28 +1,34 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './cssFile/login.css'
+import { ToastContainer,toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
   const [role,setRole]=useState("")
+  
   const handleDropdownChange = (event) => {
     setRole(event.target.value);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!username){
-      alert("please Enter a valid userName")
+      toast.error("please Enter a valid userName",{position:toast.POSITION.TOP_CENTER})
+      return
     }
     if(password.length<8){
-      alert("the minimum length for a password is 8")
+      toast.error("the minimum length for a password is 8",{position:toast.POSITION.TOP_CENTER})
+      return
     }
     if(password!==password2){
-        alert("the Passwords dont match ")
+      toast.error("passwords dont match!",{position:toast.POSITION.TOP_CENTER})
         return
     }
     if(role==""){
-        alert("Select a valid role")
+      toast.error("Please select a valid Role",{position:toast.POSITION.TOP_CENTER})
+
         return
     }
     try {
@@ -31,15 +37,16 @@ const Register = () => {
       const token = response.data.access_token;
       // Store the token in local storage
       localStorage.setItem('token', token);
-      window.location.href = '/add-action';
+      toast.success("User Created Succefully!",{position:toast.POSITION.TOP_CENTER})
+
     } catch (error) {
-      alert("Enter valid Registertion information")
-      console.log('Login failed:', error);
+      console.log('Register Failed:', error);
     }
   };
 
   return (
     <div class="Register-page">
+      <ToastContainer/>
     <div class="form">
     <form className="login-form" onSubmit={handleSubmit}>
       <input
@@ -57,7 +64,7 @@ const Register = () => {
       />
        <input className='log'
         type="password"
-        placeholder="Confirm Passwword"
+        placeholder="Confirm Password"
         value={password2}
         onChange={(e) => setPassword2(e.target.value)}
       />

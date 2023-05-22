@@ -6,6 +6,8 @@ import { render } from "@testing-library/react";
 import { json } from "react-router";
 import { renderInputFields } from "./renderInputeFields";
 import { displayLayerProps } from "./displayLayerProp";
+import { ToastContainer,toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 export default function NeuralComponent() {
   const [selectedType, setSelectedType] = useState("");
   const [inputValues, setInputValues] = useState({});
@@ -119,10 +121,18 @@ export default function NeuralComponent() {
     console.log(layer_configs);
     console.log(actions);
     console.log(epochs_num);
+    toast.success('Neural Created', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 3000, // milliseconds
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+    });
   };
 
   return (
     <div className="container">
+            <ToastContainer />
       <div className="add-layer-con">
         <form onSubmit={handleSubmitLayer}>
           <select
@@ -163,11 +173,11 @@ export default function NeuralComponent() {
                         {...provided.dragHandleProps}
                       >
                         <table className="tbl">
-                       <tr >
-                          <td>
+                       <tr className="rl" >
+                          <td className="tl">
                           {displayLayerProps(layer)}
                           </td>
-                          <td className="flx">
+                          <td className="flx tl">
                           <button className="del_layer" onClick={() => deleteLayer(index)}>
                               X
                             </button>
