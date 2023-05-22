@@ -37,8 +37,11 @@ const Register = () => {
       const token = response.data.access_token;
       // Store the token in local storage
       localStorage.setItem('token', token);
-      toast.success("User Created Succefully!",{position:toast.POSITION.TOP_CENTER})
-
+      toast.success("User Created Succefully! Redirecting to login page",{position:toast.POSITION.TOP_CENTER,  hideProgressBar: true,
+      })
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 2000);
     } catch (error) {
       console.log('Register Failed:', error);
     }

@@ -96,3 +96,13 @@ background-color: linear-gradient(to bottom, #58DADA, #1CA2BB);
     box-shadow: none;
   }
 }
+
+  .link-li {
+    cursor: pointer;
+  }
+  
+ 
+  .link {
+    color: inherit;
+    text-decoration: none;
+  }

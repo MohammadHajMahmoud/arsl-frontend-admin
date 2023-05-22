@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "./cssFile/dashboard.css"
 import axios from 'axios';
+import { toast,ToastContainer } from 'react-toastify';
 const Dashboard = () => {
     const [selectedRow, setSelectedRow] = useState(null);
     const [data, setData] = useState([]);
@@ -63,12 +64,14 @@ const Dashboard = () => {
         setData(updatedData);
       };
       const handleDownload = (id)=>{
+        toast.success("downlading the model",{position:toast.POSITION.TOP_CENTER,autoClose: 1500,})
         axios.defaults.withCredentials = true;
         axios.get(`http://localhost:8080/models/${id}/file`,{
           headers: {
             'Content-Type': 'multipart/form-data',
             'Authorization': `Bearer ${access_token}`
           },
+        }).then((respsone)=>{
         })
           .catch((error) => {
             
@@ -77,6 +80,7 @@ const Dashboard = () => {
       }
       return (
         <table className="data-table">
+          <ToastContainer/>
           <thead>
             <tr>
               <th className="table-header">ID</th>
