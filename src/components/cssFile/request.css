@@ -24,7 +24,12 @@ img:hover {
   cursor: pointer;
 }
 
-
+.val:hover{
+  color: green;
+}
+.reg:hover{
+  color: red;
+}
 
 .reQbuttons{
   display: flex;
